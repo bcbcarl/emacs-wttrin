@@ -21,6 +21,12 @@ You can also specify default HTTP request Header for Accept-Language:
 (setq wttrin-default-accept-language '("Accept-Language" . "zh-TW"))
 ```
 
+As well as the unit system, "m" for metric and "u" for USCS/imperial (the default is to choose based on your location):
+
+```elisp
+(setq wttrin-unit-system "m")
+```
+
 Then run `M-x wttrin` to get the information.
 
 When the weather is displayed you can press `q` to quit the buffer or `g` to query for another city.

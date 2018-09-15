@@ -33,13 +33,25 @@
   :type '(list)
   )
 
+(defcustom wttrin-unit-system nil
+  "Specify the units.  use 'm' for 'metric', 'u' for 'USCS, or
+nil for location based units (the default)."
+  :group 'wttrin
+  :type 'string
+  )
+
+(defun wttrin-additional-url-params ()
+  "Concatenate any extra stuff into the URL here."
+  (concat "?" wttrin-unit-system)
+  )
+
 (defun wttrin-fetch-raw-string (query)
   "Get the weather information based on your QUERY."
   (let ((url-request-extra-headers '(("User-Agent" . "curl"))))
     (add-to-list 'url-request-extra-headers wttrin-default-accept-language)
     (with-current-buffer
         (url-retrieve-synchronously
-         (concat "http://wttr.in/" query)
+         (concat "http://wttr.in/" query (wttrin-additional-url-params))
          (lambda (status) (switch-to-buffer (current-buffer))))
       (decode-coding-string (buffer-string) 'utf-8))))
 
