@@ -22,6 +22,11 @@
   :prefix "wttrin-"
   :group 'comm)
 
+(defcustom wttrin-api-version 1
+  "Specifies which version of teh wttrin API to use."
+  :group 'wttrn
+  :type '(choice (const 1) (const 2)))
+
 (defcustom wttrin-default-cities '("Taipei" "Keelung" "Taichung" "Tainan")
   "Specify default cities list for quick completion."
   :group 'wttrin
@@ -39,7 +44,7 @@
     (add-to-list 'url-request-extra-headers wttrin-default-accept-language)
     (with-current-buffer
         (url-retrieve-synchronously
-         (concat "http://wttr.in/" query)
+         (concat "http://v" (number-to-string wttrin-api-version) ".wttr.in/" query)
          (lambda (status) (switch-to-buffer (current-buffer))))
       (decode-coding-string (buffer-string) 'utf-8))))
 
