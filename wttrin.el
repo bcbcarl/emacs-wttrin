@@ -63,8 +63,12 @@
         (erase-buffer)
         (insert (xterm-color-filter raw-string))
         (goto-char (point-min))
-        (re-search-forward "^$")
-        (delete-region (point-min) (1+ (point)))
+       (save-excursion
+          (re-search-forward "^$")
+          (delete-region (point-min) (1+ (point))))
+       (save-excursion
+         (while  (re-search-forward "(B" nil t)
+           (delete-region (match-beginning 0) (match-end 0))))
         (use-local-map (make-sparse-keymap))
         (local-set-key "q" 'wttrin-exit)
         (local-set-key "g" 'wttrin)
