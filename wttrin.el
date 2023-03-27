@@ -35,7 +35,7 @@
 
 (defun wttrin-fetch-raw-string (query)
   "Get the weather information based on your QUERY."
-  (let ((url-request-extra-headers '(("User-Agent" . "curl"))))
+  (let ((url-user-agent "curl"))
     (add-to-list 'url-request-extra-headers wttrin-default-accept-language)
     (with-current-buffer
         (url-retrieve-synchronously
